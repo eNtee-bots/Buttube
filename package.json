@@ -1,0 +1,38 @@
+{
+  "name": "buttube",
+  "version": "0.0.4",
+  "description": "A music package with buttons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord-buttons": "^4.0.0",
+    "discord.js": "^12.5.3",
+    "distube": "^2.8.15",
+    "eslint": "^7.30.0",
+    "mongoose": "^5.12.14",
+    "ms": "^2.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djpie123/Buttube.git"
+  },
+  "author": "Pieislive",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djpie123/Buttube/issues"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "discord-giveaways",
+    "giveaways",
+    "discord-buttons",
+    "buttons",
+    "buttons-discord",
+    "button-roles",
+    "discord-button-roles"
+  ],
+  "homepage": "https://github.com/djpie123/Buttube#readme"
+}
