@@ -1,6 +1,7 @@
 const DisTube = require('distube')
 const { MessageButton, MessageActionRow } = require('discord-buttons'); 
 const {MessageEmbed} = require("discord.js")
+const db = require('quick.db')
 class buttube {
     /**
      * 
@@ -46,9 +47,16 @@ class buttube {
 .setTitle('Not Playing')
  .setImage(`https://i.imgur.com/msgNNqN.gif`)
         this.msg = await  message.channel.send(musicem, row)
-    this.events(this.msg)
+        db.set(`${message.guild.id}`, `${this.msg.id}`)
     }
-async events(msg){
+    async play(message, music){
+      this.events(message)
+        this.distube.play(message, music)
+        message.delete()
+    }
+async events(message){
+  const msgId = await db.get(`${message.guild.id}`)
+  const msg = await message.channel.messages.fetch(msgId)
     this.distube
  .on("playSong", (message, queue, song) =>{
  const embed1 = new MessageEmbed()
@@ -66,10 +74,6 @@ const embed = new MessageEmbed()
     .setImage(`https://i.imgur.com/msgNNqN.gif`)
     msg.edit(embed)
     });
-}
-async play(message, music){
-    this.distube.play(message, music)
-    message.delete()
 }
 async button(button){
     const embed = new MessageEmbed()
