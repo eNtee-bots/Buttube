@@ -35,10 +35,11 @@ const {buttube} = require('buttube')
 const client = new Discord.Client();
 //necessary to be at this place only
 require('discord-buttons')(client)
-client.buttube = new buttube(client)
+client.buttube = new buttube(client, "mongodb url")
 ```
 > ### params
 client - Discord.client
+mongodb url - mongodb connection url
 > ### another step 
 ```js
 //add this event

@@ -1,18 +1,19 @@
 const DisTube = require('distube')
 const { MessageButton, MessageActionRow } = require('discord-buttons'); 
 const {MessageEmbed} = require("discord.js")
-const db = require('quick.db')
+const { Database } = require("quickmongo");
 class buttube {
     /**
      * 
      * @param {Discord.Client} client - A discord.js client.
      */
 
-    constructor(client) {
+    constructor(client, url = '') {
 
         if (!client) throw new Error("A client wasn't provided.");
-
+        if (!url) throw new Error("Please provide a mongodb connection url")
         this.client = client;
+        this.db = new Database(url)
     this.distube = new DisTube(client, { searchSongs: false, emitNewSongOnly: true });
     }
     async setup(message){
@@ -47,7 +48,7 @@ class buttube {
 .setTitle('Not Playing')
  .setImage(`https://i.imgur.com/msgNNqN.gif`)
         this.msg = await  message.channel.send(musicem, row)
-        db.set(`${message.guild.id}`, `${this.msg.id}`)
+        this.db.set(`${message.guild.id}`, `${this.msg.id}`)
     }
     async play(message, music){
       this.events(message)
@@ -55,7 +56,7 @@ class buttube {
         message.delete()
     }
 async events(message){
-  const msgId = await db.get(`${message.guild.id}`)
+  const msgId = await this.db.get(`${message.guild.id}`)
   const msg = await message.channel.messages.fetch(msgId)
     this.distube
  .on("playSong", (message, queue, song) =>{
